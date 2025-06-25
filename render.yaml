@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: odoo
-    env: docker
-    dockerComposeFilePath: ./docker-compose.yml
-    plan: free
