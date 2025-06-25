@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="customer_feedback_list_view" model="ir.ui.view">
+            <field name="name">customer.feedback.list.view</field>
+            <field name="model">customer.feedback</field>
+            <field name="arch" type="xml">
+                <list editable="top">
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="meal_id"/>
+                    <field name="comment"/>
+                    <field name="reason" optional="hide"/>
+                    <field name="rate" widget="priority"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state == 'approved'"
+                           decoration-danger="state == 'rejected'"
+                           decoration-muted="state == 'new'"/>
+
+                    <button name="action_approved" string="Approve"
+                            class="btn-success" type="object"
+                            invisible="state != 'new'"/>
+                    <button name="%(tech_order.feedback_reason_window)d" string="Reject"
+                            class="btn-danger" type="action"
+                            invisible="state != 'new'"
+                   />
+<!--                     context="{'fed_id':id}"-->
+
+
+                </list>
+            </field>
+        </record>
+        <record id="customer_feedback_window_action" model="ir.actions.act_window">
+            <field name="name">Feedback</field>
+            <field name="res_model">customer.feedback</field>
+            <field name="view_mode">list</field>
+        </record>
+
+
+        <menuitem name="Feedback" id="customer_feedback_menu"
+        parent="tech_order.order_base_menu"
+        action="tech_order.customer_feedback_window_action"
+        groups="tech_order.tech_order_mgr"/>
+
+    </data>
+</odoo>

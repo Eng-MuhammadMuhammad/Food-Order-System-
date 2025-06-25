@@ -1,0 +1,154 @@
+<odoo>
+    <data>
+        <record id="order_meal_paperformat" model="report.paperformat">
+            <field name="name">Order meal</field>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+        </record>
+
+        <record id="order_meal_report" model="ir.actions.report">
+            <field name="name">Order</field>
+            <field name="model">meal.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">tech_order.report_order_meal</field>
+            <field name="report_file">tech_order.report_order_meal</field>
+            <field name="print_report_name">'Order - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_meal_order"/>
+
+    </record>
+
+        <record id="tech_order.order_meal_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="tech_order.order_meal_paperformat"/>
+        </record>
+
+         <template id="report_order_meal">
+            <t t-call="web.html_container">
+                <t t-foreach="docs.sorted(key=lambda x: x.order_date)" t-as="doc">
+                    <t t-call="tech_order.report_order_meal_document" t-lang="doc.customer_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_order_meal_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>
+                        <center>
+                            <span t-esc="doc.name"/>
+                        </center>
+                    </h2>
+
+                    <div class="row">
+                        <div style="float:left;width:50.0%">
+                            <strong t-esc="doc.customer_id.name" />
+                        </div>
+                        <div style="float:left;width:50.0%">
+                            <strong t-esc="doc.expected_date" />
+                        </div>
+                    </div>
+                    <t t-if="doc.state == 'in_process'">
+                        <center>
+                            items
+                        </center>
+                        <table class="table table-bordered">
+                        <thead>
+                            <th>
+                                <center>Sequence</center>
+                            </th>
+                             <th>
+                                <center>Name</center>
+                            </th>
+                            <th>
+                                <center>Quantity</center>
+                            </th>
+                            <th>
+                                <center>Item Price</center>
+                            </th>
+                             <th>
+                                <center>Total Price</center>
+                            </th>
+                            <th>
+                                <center>Meal Rate</center>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.item_ids" t-as="item">
+                                <tr>
+                                    <td>
+                                       <span t-esc="item_index"></span>
+                                    </td>
+                                    <td>
+                                       <span t-field="item.meal_id.name"></span>
+                                   </td>
+                                   <td>
+                                       <span t-field="item.quantity"></span>
+                                   </td>
+                                   <td>
+                                       <span t-field="item.price"></span>
+                                   </td>
+                                   <td>
+                                       <span t-field="item.total_price"></span>
+                                   </td>
+                                    <td>
+                                        <t t-set="meal_feedbacks"
+                                           t-value="request.env['customer.feedback'].search([('customer_id', '=',doc.customer_id.id),('meal_id','=', item.meal_id.id)], limit=3)"/>
+                                        <table>
+                                            <thead>
+                                                 <th>
+                                                        <center>Sequence</center>
+                                                    </th>
+                                                    <th>
+                                                        <center>Rate</center>
+                                                    </th>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="meal_feedbacks" t-as="feedback">
+                                                    <tr>
+                                                       <td>
+                                                           <span t-esc="feedback_index"></span>
+                                                       </td>
+                                                       <td>
+                                                           <span t-esc="feedback.rate"></span>
+                                                       </td>
+                                                       </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="2" class="text-right">
+                                    <strong t-esc="doc.total_price"/>
+                                </td>
+                                 <td colspan="2" class="text-right">
+                                      <strong>Total</strong>
+                                 </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    </t>
+                    <t t-else="">
+                         <center>
+                            No Order
+                        </center>
+                    </t>
+
+                </div>
+            </t>
+        </template>
+
+
+
+
+
+
+
+    </data>
+</odoo>

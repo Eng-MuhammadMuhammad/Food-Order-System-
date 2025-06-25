@@ -1,0 +1,31 @@
+# Odoo
+*.log
+*.pot
+*.py[co]
+*.swp
+*.db
+*.egg-info
+*.pid
+*.mo
+*.DS_Store
+
+# Session & Cache
+/sessions/
+/.cache/
+/.local/
+
+# Config files (if sensitive)
+/odoo.conf
+/.env
+
+# PostgreSQL data
+/data/
+
+# Node & Static Dependencies
+/node_modules/
+/static/lib/
+/static/src/vendor/
+
+# IDE files
+.idea/
+.vscode/

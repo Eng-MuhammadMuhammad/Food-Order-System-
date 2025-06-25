@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="order_meal_res_partner_feedback_form_view" model="ir.ui.view">
+            <field name="name">order.partner.feedback.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']"
+                position="after">
+                    <page name="feedbacks">
+                        <field name="feedbacks_ids">
+                            <list>
+                                 <field name="meal_id"/>
+                                <field name="comment"/>
+                                <field name="rate"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
+<!-- expr //form/field[@name='vat'][1]-->
+<!-- position after, before, replace-->
+
+<!-- expr //form-->
+<!-- position inside-->
+
+<!-- expr //form/notebook/page[@name='internal_notes']/field[@name='comment']-->
+<!-- position after-->

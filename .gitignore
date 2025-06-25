@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Backup files
+*~
+*.bak
+*.swp
+*.tmp
+
+# Logs and databases
+*.log
+*.db
+
+# Compiled assets
+*.egg-info/
+*.eggs/
+*.manifest
+*.pot
+
+# Python virtual environments
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node.js / frontend assets (if used)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Odoo specifics
+*.zip
+*.tar
+*.tar.gz
+.idea/
+*.iml
+
+# System files
+.DS_Store
+Thumbs.db
