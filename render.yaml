@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: odoo
+    env: docker
+    plan: free
+    branch: master
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /
