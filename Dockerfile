@@ -1,9 +1,6 @@
 FROM odoo:18.0
-
-COPY ./odoo.conf /etc/odoo/odoo.conf
-
+COPY ./docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 WORKDIR /usr/lib/python3/dist-packages/odoo
-
 EXPOSE 8069
-
-CMD ["odoo", "-c", "/etc/odoo/odoo.conf"]
+ENTRYPOINT ["docker-entrypoint.sh"]
