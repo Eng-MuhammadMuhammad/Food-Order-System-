@@ -7,3 +7,16 @@ services:
     dockerfilePath: ./Dockerfile
     autoDeploy: true
     healthCheckPath: /
+    envVars:
+      - key: DB_HOST
+        value: dpg-d1eea1euk2gs73ak4g10-a
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_USER
+        value: dbname_ht5k_user
+      - key: DB_PASSWORD
+        value: pU4hgODGgbYr4tIUhQnc0wj3Opzu7GRG
+      - key: DB_NAME
+        value: dbname_ht5k
+    ports:
+      - "8069"
